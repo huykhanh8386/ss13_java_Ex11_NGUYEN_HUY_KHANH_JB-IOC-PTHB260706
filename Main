@@ -1,0 +1,24 @@
+public class Main {
+    public static void main(String[] args) {
+        ProductLRUCache cache = new ProductLRUCache(2);
+        Product a = new Product("A", "Laptop", 20000000);
+        Product b = new Product("B", "Chuột", 500000);
+        Product c = new Product("C", "Bàn phím", 800000);
+        Product d = new Product("D", "Tai nghe", 1200000);
+        cache.put(a);
+        cache.put(b);
+        cache.displayCache();
+        cache.put(c);
+        System.out.println("\nSau khi thêm C:");
+        cache.displayCache();
+        System.out.println("\nTruy cập B:");
+        cache.get("B");
+        cache.put(d);
+        System.out.println("\nSau khi thêm D:");
+        cache.displayCache();
+        System.out.println("\nTruy cập C:");
+        Product product = cache.get("C");
+        System.out.println("Kết quả: " + product);
+        cache.displayCache();
+    }
+}
