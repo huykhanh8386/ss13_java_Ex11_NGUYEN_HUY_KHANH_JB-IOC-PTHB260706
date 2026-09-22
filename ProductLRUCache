@@ -1,0 +1,38 @@
+public class ProductLRUCache {
+    private LRUCache<String, Product> cache;
+    public ProductLRUCache(int capacity) {
+        cache = new LRUCache<>(capacity);
+    }
+    public void put(Product product) {
+        cache.put(product.getId(), product);
+        System.out.println("Đã đưa vào Cache: " + product.getId());
+    }
+    public Product get(String id) {
+        Product product = cache.get(id);
+        if (product == null) {
+            System.out.println("Cache Miss: " + id);
+            product = loadFromDatabase(id);
+            if (product != null) {
+                cache.put(id, product);
+                System.out.println("Đã lấy " + id + " từ Database và đưa lại vào Cache.");
+            }
+        } else {
+            System.out.println("Cache Hit: " + id);
+        }
+        return product;
+    }
+    private Product loadFromDatabase(String id) {
+        System.out.println("Đang truy vấn Database...");
+        return new Product(id, "Sản phẩm " + id, 100000);
+    }
+    public void displayCache() {
+        System.out.println("\n===== CACHE HIỆN TẠI =====");
+        if (cache.isEmpty()) {
+            System.out.println("Cache đang rỗng.");
+            return;
+        }
+        for (String key : cache.keySet()) {
+            System.out.println(key + " -> " + cache.get(key));
+        }
+    }
+}
